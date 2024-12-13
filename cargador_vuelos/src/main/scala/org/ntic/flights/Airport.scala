@@ -7,4 +7,4 @@ package org.ntic.flights
  * @param cityName: String
  * @param stateAbr: String
  */
-case class Airport(airporId: Long, code: String, cityName: String, stateAbr: String)
+case class Airport(airportId: Long, code: String, cityName: String, stateAbr: String)

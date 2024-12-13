@@ -1,6 +1,5 @@
 package org.ntic.flights
-import scala.util.Try
-import scala.util.Failure
+import scala.util.{Try, Success, Failure}
 
 /**
  * This class is used to represent a row of the flights data. It contains the following fields:
@@ -42,27 +41,26 @@ object Row {
    * @param tokens: Seq[String]
    * @return Try[Row]
    */
-  def fromStringList(tokens: Seq[String]): Try[Row] = {
-    if (tokens.length != 13) {
-      Failure(new IllegalArgumentException("Invalid number of tokens. Expected 13 fields."))
-    } else {
-      Try {
-        Row(
-          flDate = tokens.head.trim,
-          originAirportId = tokens(1).trim.toLong,
-          origin = tokens(2).trim,
-          originCityName = tokens(3).trim,
-          originStateAbr = tokens(4).trim,
-          destAirportId = tokens(5).trim.toLong,
-          dest = tokens(6).trim,
-          destCityName = tokens(7).trim,
-          destStateAbr = tokens(8).trim,
-          depTime = tokens(9).trim,
-          depDelay = tokens(10).trim.toDouble,
-          arrTime = tokens(11).trim,
-          arrDelay = tokens(12).trim.toDouble
-        )
-      }
+  def fromStringList(tokens: Seq[String]): Unit = {
+    val result: Try[Row] = Try {
+      val flDate = tokens.head.trim
+      val originAirportId = tokens(1).trim.toLong
+      val origin = tokens(2).trim
+      val originCityName = tokens(3).trim
+      val originStateAbr = tokens(4).trim
+      val destAirportId = tokens(5).trim.toLong
+      val dest = tokens(6).trim
+      val destCityName = tokens(7).trim
+      val destStateAbr = tokens(8).trim
+      val depTime = tokens(9).trim
+      val depDelay = tokens(10).trim.toDouble
+      val arrTime = tokens(11).trim
+      val arrDelay = tokens(12).trim.toDouble
+      Row(flDate, originAirportId, origin, originCityName, originStateAbr, destAirportId, dest, destCityName, destStateAbr, depTime, depDelay, arrTime, arrDelay)
+    }
+    result match {
+      case Success(value) => println(s"La creación del Row fue exitosa con el valor: $value")
+      case Failure(exception) => println(s"La creación del Row fue fallido con la excepción: ${exception.getMessage}")
     }
   }
 }
