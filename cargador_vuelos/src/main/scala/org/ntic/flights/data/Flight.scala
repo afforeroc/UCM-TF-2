@@ -37,8 +37,7 @@ object Flight {
    * @return Flight
    */
   def fromString(flightInfo: String): Flight = {
-    val delimiter = "," // Define the delimiter (adjust if needed from configuration)
-    val columns = flightInfo.split(delimiter).map(_.trim)
+    val columns = flightInfo.split(FlightsLoaderConfig.delimiter)
 
     /**
      * This function is used to get the value of a column from the array of String generated from the row of the csv
@@ -47,22 +46,8 @@ object Flight {
      * @return String value of the column
      */
     def getColValue(colName: String): String = {
-      val columnIndexMap = Map(
-        "FL_DATE" -> 0,
-        "ORIGIN_AIRPORT_ID" -> 1,
-        "ORIGIN" -> 2,
-        "ORIGIN_CITY_NAME" -> 3,
-        "ORIGIN_STATE_ABR" -> 4,
-        "DEST_AIRPORT_ID" -> 5,
-        "DEST" -> 6,
-        "DEST_CITY_NAME" -> 7,
-        "DEST_STATE_ABR" -> 8,
-        "DEP_TIME" -> 9,
-        "ARR_TIME" -> 10,
-        "DEP_DELAY" -> 11,
-        "ARR_DELAY" -> 12
-      )
-      columns(columnIndexMap(colName))
+      val index = FlightsLoaderConfig.columnIndexMap(colName)
+      columns(index)
     }
 
     val oriAirport = Airport(
@@ -71,11 +56,13 @@ object Flight {
       cityName = getColValue("ORIGIN_CITY_NAME"),
       stateAbr = getColValue("ORIGIN_STATE_ABR"))
 
+
     val destAirport = Airport(
       airportId = getColValue("DEST_AIRPORT_ID").toLong,
       code = getColValue("DEST"),
       cityName = getColValue("DEST_CITY_NAME"),
       stateAbr = getColValue("DEST_STATE_ABR"))
+
 
     Flight(
       flDate = getColValue("FL_DATE"),

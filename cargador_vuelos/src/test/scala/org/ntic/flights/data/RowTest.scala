@@ -3,7 +3,6 @@ package org.ntic.flights.data
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
-
 import scala.util.Try
 
 
