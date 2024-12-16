@@ -1,7 +1,5 @@
 package org.ntic.flights.data
-
 import com.typesafe.config.{Config, ConfigFactory}
-
 import scala.jdk.CollectionConverters._
 
 object FlightsLoaderConfig {

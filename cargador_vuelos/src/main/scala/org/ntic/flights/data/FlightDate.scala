@@ -1,7 +1,5 @@
 package org.ntic.flights.data
-
 import com.sun.media.sound.InvalidFormatException
-
 import java.time.YearMonth
 
 /**
